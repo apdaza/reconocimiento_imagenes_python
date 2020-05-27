@@ -108,3 +108,9 @@ code {
   float: right;
   padding-top: 1em;
 }
+
+img {
+  width: 70%;
+  display: block;
+  margin: auto;
+}
