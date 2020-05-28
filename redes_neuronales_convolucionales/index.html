@@ -10,7 +10,7 @@
       class: center, middle, inverse
       ---
       template: inverse
-      ![RN](../imagenes/logo_horizontal.png)
+      ![reducida](../imagenes/logo_horizontal.png)
       # Redes Neuronales convoluciones
 
       ---
@@ -501,371 +501,394 @@
       Test accuracy: 0.9704
       ~~~
 
+      - Puede comprobarse que este código ofrece una accuracy de aproximadamente 97%.
+
       ---
       ## Componentes básicos de una red neuronal convolucional
 
       ### Entrenamiento y evaluación del modelo
 
-      - Puede comprobarse que este código ofrece una accuracy de aproximadamente 97%.
+      **Argumentos del método fit**
 
-      El lector, si ha ejecutado el código en un ordenador con solo CPU, habrá
-      notado que esta vez el entrenamiento de la red ha tardado bastante más
-      que el anterior ejemplo, incluso con solo 5 epochs. ¿Se imaginan lo que
-      podría llegar a tardar una red de muchas más capas, epochs o imágenes? A
-      partir de aquí, como comentábamos en la introducción del libro, nos hace
-      falta poder entrenar con más recursos de computación como pueden ser las
-      GPU. En la segunda parte del libro hablaremos más sobre este tema.
+      - En este ejemplo no hemos separado una  parte de los datos para la validación del modelo, que serían los que se pasarían en el argumento validation_data del método fit().
 
-      43. Argumentos del método fit
+      - Como ya hemos visto en otros casos, Keras coge muchos valores por defecto, y uno de ellos es este.
 
-      El lector se habrá percatado que en este ejemplo no hemos separado una
-      parte de los datos para la validación del modelo como indicábamos en la
-      sección 2.4, que serían los que se pasarían en el argumento
-      validation_data del método fit(). ¿Cómo es posible?
- 
-      Como ya hemos visto en otros casos, Keras coge muchos valores por
-      defecto, y uno de ellos es este. En realidad, si no se especifica el
-      argumento validation_data, Keras usa el argumento validation_split,
-      que es un entero entre 0 y 1 que especifica la fracción de los datos de
-      entrenamiento que se deben considerar como datos de validación
-      (argumento que tampoco hemos indicado en este ejemplo).
+      - En realidad, si no se especifica el argumento validation_data, Keras usa el argumento validation_split, que es un entero entre 0 y 1 que especifica la fracción de los datos de entrenamiento que se deben considerar como datos de validación.
 
-      Por ejemplo, un valor del 0.2 implica que se separara el 20% de los
-      datos que se han indicado en los arrays Numpy en los dos primeros
-      argumentos del método fit() y no serán incluidos en el entrenamiento,
-      siendo usados solo para evaluar la loss o cualquier otra métrica al
-      final de cada epoch. Su valor por defecto es 0.0. Es decir, si no se
-      especifica ninguno de estos argumentos no se realiza el proceso de
-      validación al final de cada epoch.
+      - Por ejemplo, un valor del 0.2 implica que se separara el 20% de los datos que se han indicado en los arrays Numpy en los dos primeros argumentos del método fit() y no serán incluidos en el entrenamiento, siendo usados solo para evaluar la loss o cualquier otra métrica al final de cada epoch.
 
-      En realidad, no tiene mucho sentido no hacerlo, porque como veremos en
-      la segunda parte del libro los hiperparámetros que pasamos como
-      argumentos a los métodos son muy importantes y precisamente el uso de
-      los datos de validación es crucial para encontrar su mejor valor. Pero
-      de momento, en este capítulo más centrado en la arquitectura de una red
-      neuronal convolucional no hemos creído conveniente entrar en estos
-      detalles y he aquí la simplificación.
+      ---
+      ## Componentes básicos de una red neuronal convolucional
 
-      También con este ejemplo aprovechamos para remarcar que Keras tiene la
-      mayoría de hiperparámetros inicializados por defecto, de tal manera que
-      nos facilita iniciarnos en la implementación de una red neuronal.
+      ### Entrenamiento y evaluación del modelo
 
-      19. Hiperparámetros de la capa convolucional
+      **Argumentos del método fit**
 
-      Los principales hiperparámetros de las redes neuronales convolucionales
-      son el tamaño de la ventana del filtro, el número de filtros, el
-      paddings y tride.
+      - Su valor por defecto es 0.0. Es decir, si no se especifica ninguno de estos argumentos no se realiza el proceso de validación al final de cada epoch.
 
-      44. Tamaño y número de filtros
+      - En realidad, no tiene mucho sentido no hacerlo, los hiperparámetros que pasamos como argumentos a los métodos son muy importantes y precisamente el uso de los datos de validación es crucial para encontrar su mejor valor.
 
-      El tamaño de la ventana (window_height × window_width) que mantiene
-      información de píxeles cercanos espacialmente es usualmente de 3×3 o
-      5×5. El número de filtros que nos indica el número de características
-      que queremos manejar (output_depth) acostumbran a ser de 32 o 64. En
-      las capas Conv2D de Keras estos hiperparámetros son los que pasamos como
-      argumentos en este orden:
+      - Pero de momento, el ejemplo está más centrado en la arquitectura de una red  neuronal convolucional, no hemos creído conveniente entrar en estos detalles y he aquí la simplificación.
 
-      **Conv2D(output_depth, (window_height, window_width))**
+      - También con este ejemplo aprovechamos para remarcar que Keras tiene la mayoría de hiperparámetros inicializados por defecto, de tal manera que nos facilita iniciarnos en la implementación de una red neuronal.
 
-      45. Padding
+      ---
+      ## Componentes básicos de una red neuronal convolucional
 
-      Para explicar el concepto de padding usemos un ejemplo. Supongamos una
-      imagen con 5×5 píxeles. Si elegimos una ventana de 3×3 para realizar la
-      convolución vemos que el tensor resultante de la operación es de tamaño
-      3×3. Es decir, se encoge un poco: exactamente dos píxeles por cada
-      dimensión, en este caso. En la siguiente figura se muestra visualmente.
-      Supongamos que la figura de la izquierda es la imagen de 5×5. En ella
-      hemos numerado los píxeles para facilitar ver como se desliza la
-      ventrada de 3×3 para para calcular los elementos del filtro. En el
-      centro se representa como la ventana de 3×3 se ha desplazado por la
-      imagen dos posiciones hacia la derecha y dos posiciones hacia abajo. El
-      resultado de aplicar la operación de convolución nos devuelve el filtro
-      que hemos representado a la izquierda. Cada elemento de este filtro está
-      etiquetado con una letra que lo asocia al contenido de la ventana
-      deslizante con el que se calcula su valor.
+      ### Hiperparámetros de la capa convolucional
 
-      ![](../imagenes/image66.jpeg){width="3.348611111111111in"
-      height="1.6819444444444445in"}
+      - Los principales hiperparámetros de las redes neuronales convolucionales son el tamaño de la ventana del filtro, el número de filtros, el paddings y tride.
 
-      Este mismo efecto se puede observar en el ejemplo de red neuronal
-      convolucional que estamos creando en este capítulo. Comenzamos con una
-      imagen de entrada de 28× 28 píxeles y los filtros resultantes son de 24
-      × 24 después de la primera capa de convolución. Y en la segunda capa de
-      convolución, pasamos de un tensor de 12×12 a uno de 8×8.
+      ** Tamaño y número de filtros**
 
-      Pero a veces queremos obtener una imagen de salida de las mismas
-      dimensiones que la entrada y podemos usar para ello el hiperparámetro
-      padding en las capas convolucionales. Con padding podemos agregar ceros
-      alrededor de las imágenes de entrada antes de hacer deslizar la ventana
-      por ella. En nuestro caso de la figura anterior, para que el filtro de
-      salida tenga el mismo tamaño que la imagen de entrada, podemos añadir a
-      la imagen de entrada una columna a la derecha, una columna a la
-      izquierda, una fila arriba y una fila debajo de ceros. Visualmente se
-      puede ver en la siguiente figura:
+      - El tamaño de la ventana (window_height × window_width) que mantiene información de píxeles cercanos espacialmente es usualmente de 3×3 o 5×5.
 
-      ![](../imagenes/image67.jpeg){width="1.28125in"
-      height="1.1145833333333333in"}
+      - El número de filtros que nos indica el número de características que queremos manejar (output_depth) acostumbran a ser de 32 o 64.
 
-      Si ahora deslizamos la ventana de 3×3, vemos que puede desplazarse 4
-      posiciones a la derecha y 4 posiciones hacia abajo, generando las 25
-      ventanas que generan el filtro de tamaño 5×5.
+      - En  las capas Conv2D de Keras estos hiperparámetros son los que pasamos como argumentos en este orden:
 
-      ![](../imagenes/image68.jpeg){width="2.8805555555555555in"
-      height="2.546527777777778in"}
+      ~~~
+      Conv2D(output_depth, (window_height, window_width))
+      ~~~
 
-      En Keras, el padding en la capa Conv2D se configura con el argumento
-      padding, que puede tener dos valores: "same", que indica que se añadan
-      tantas filas y columnas de ceros como sea necesario para que la salida
-      tenga la misma dimensión que la entrada; y "valid", que indica no hacer
-      padding (que es el valor por defecto de este argumento en Keras).
+      ---
+      ## Componentes básicos de una red neuronal convolucional
 
-      46. Stride
+      ### Hiperparámetros de la capa convolucional
 
-      Otro hiperparámetro que podemos especificar en una capa convolucional es
-      el stride, que nos indica el número de pasos en que se mueve la ventada
-      de los filtros (en el anterior ejemplo el stride era de uno).
+      **Padding**
 
-      Valores de stride grandes hacen decrecer el tamaño de la información que
-      se pasará la siguiente capa. En la siguiente figura podemos ver el mismo
-      ejemplo anterior pero ahora con un valor de stride de 2:
+      - Para explicar el concepto de padding usemos un ejemplo.
 
-      ![](../imagenes/image69.jpeg){width="3.0256944444444445in"
-      height="1.3388888888888888in"}
+      - Supongamos una imagen con 5×5 píxeles. Si elegimos una ventana de 3×3 para realizar la convolución vemos que el tensor resultante de la operación es de tamaño 3×3.
 
-      Como vemos, la imagen de 5×5 se ha convertido en un filtro de tamaño más
-      reducido de 2×2. Pero en realidad los strides en convolucionales para
-      reducir los tamaños son raramente utilizados en la práctica; para ello
-      se usan las operaciones de pooling que hemos presentado antes. En Keras,
-      el stride en la capa Conv2D se configura con el argumento stride que
-      tiene por defecto el valor strides=(1, 1) que indica por separado el
-      avance en las dos dimensiones.
+      - Es decir, se encoge un poco: exactamente dos píxeles por cada dimensión, en este caso.
 
-      20. Redes neuronales convolucionales con nombre propio
+      - En la siguiente figura se muestra visualmente.
 
-      Hay varias arquitecturas de redes neuronales convolucionales populares
-      dentro de la comunidad de Deep Learning, a las cuales se las denomina
-      mediante un nombre propio. Una de ellas, equivalente a la que hemos
-      presentado en este capítulo, es LeNet[3], nacida en los años noventa
-      cuando Yann LeCun consiguió el primer uso de redes neuronales
-      convolucionales con éxito en la lectura de códigos postales y dígitos.
-      Los datos de entrada a la red son imágenes de 32×32 píxeles, seguida de
-      dos etapas de convolución-pooling, una capa densamente conectada y una
-      capa softmax final que nos permite reconocer los números.
+      ![reducida](../imagenes/image66.jpeg)
 
-      Pero hay muchas más: por ejemplo, la red neuronal convolucional
-      AlexNet[4] de Alex Krizhevsky, ya mencionada, que ganó la competición
-      de ImageNet del año 2012. Famosas son también GoogleLeNet[5] de
-      Google, que con su módulo de inception reduce drásticamente los
-      parámetros de la red (15 veces menos que AlexNet) y de ella han derivado
-      varias versiones como la Inception-v4[6]. Otras como la VGGnet[7]
-      contribuyeron a demostrar que la profundidad de la red es una componente
-      crítica para unos buenos resultados. Si el lector quiere conocer más
-      sobre las diversas redes convolucionales populares en la comunidad puede
-      leer el artículo Recent Advances in Convoluitonal Neural Networks[8].
+      ---
+      ## Componentes básicos de una red neuronal convolucional
 
-      Lo interesante de muchas de estas redes es que podemos encontrarlas ya
-      construidas en la mayoría de frameworks que introducíamos en la sección
+      ### Hiperparámetros de la capa convolucional
 
-      1.3 del capítulo 1. Por ejemplo, en Keras, si quisiéramos programar una
-      red neuronal VGGnet podríamos hacerlo escribiendo el siguiente código:
+      **Padding**
 
-      +-----------------------------------------------------------------------+
-      | from keras.models import Sequential from keras.layers import Dense,   |
-      | Activation, Dropout, Flatten from keras.layers import Conv2D from     |
-      | keras.layers import MaxPooling2D                                      |
-      |                                                                       |
-      | input_shape = (224, 224, 3)                                          |
-      |                                                                       |
-      | model = Sequential() model.add(Conv2D(64, (3, 3),                     |
-      | input_shape=input_shape, padding='same',activation='relu'))     |
-      | model.add(Conv2D(64, (3, 3), activation='relu', padding='same'))  |
-      | model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))            |
-      |                                                                       |
-      | model.add(Conv2D(128, (3, 3), activation='relu', padding='same')) |
-      | model.add(Conv2D(128, (3, 3), activation='relu',                    |
-      | padding='same',)) model.add(MaxPooling2D(pool_size=(2, 2),         |
-      | strides=(2, 2)))                                                      |
-      |                                                                       |
-      | model.add(Conv2D(256, (3, 3), activation='relu',                    |
-      | padding='same',)) model.add(Conv2D(256, (3, 3),                     |
-      | activation='relu', padding='same',)) model.add(Conv2D(256, (3,    |
-      | 3), activation='relu', padding='same',))                          |
-      | model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))            |
-      |                                                                       |
-      | model.add(Conv2D(512, (3, 3), activation='relu',                    |
-      | padding='same',)) model.add(Conv2D(512, (3, 3),                     |
-      | activation='relu', padding='same',)) model.add(Conv2D(512, (3,    |
-      | 3), activation='relu', padding='same',))                          |
-      | model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))            |
-      |                                                                       |
-      | model.add(Conv2D(512, (3, 3), activation='relu',                    |
-      | padding='same',)) model.add(Conv2D(512, (3, 3),                     |
-      | activation='relu', padding='same',)) model.add(Conv2D(512, (3,    |
-      | 3), activation='relu', padding='same',))                          |
-      | model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))            |
-      |                                                                       |
-      | model.add(Flatten()) model.add(Dense(4096, activation='relu'))      |
-      | model.add(Dense(4096, activation='relu')) model.add(Dense(1000,     |
-      | activation='softmax'))                                              |
-      +-----------------------------------------------------------------------+
+      - Supongamos que la figura de la izquierda es la imagen de 5×5.
 
-      Invocando al método summary():
+      - En ella hemos numerado los píxeles para facilitar ver como se desliza la ventrada de 3×3 para para calcular los elementos del filtro.
 
+      - En el centro se representa como la ventana de 3×3 se ha desplazado por la imagen dos posiciones hacia la derecha y dos posiciones hacia abajo.
+
+      - El resultado de aplicar la operación de convolución nos devuelve el filtro que hemos representado a la izquierda.
+
+      - Cada elemento de este filtro está etiquetado con una letra que lo asocia al contenido de la ventana deslizante con el que se calcula su valor.
+
+      - Este mismo efecto se puede observar en el ejemplo de red neuronal convolucional que estamos creando.
+
+      ---
+      ## Componentes básicos de una red neuronal convolucional
+
+      ### Hiperparámetros de la capa convolucional
+
+      **Padding**
+
+      - Comenzamos con una imagen de entrada de 28× 28 píxeles y los filtros resultantes son de 24 × 24 después de la primera capa de convolución.
+
+      - Y en la segunda capa de convolución, pasamos de un tensor de 12×12 a uno de 8×8.
+
+      - Pero a veces queremos obtener una imagen de salida de las mismas dimensiones que la entrada y podemos usar para ello el hiperparámetro padding en las capas convolucionales.
+
+      - Con padding podemos agregar ceros alrededor de las imágenes de entrada antes de hacer deslizar la ventana por ella.
+
+      - En nuestro caso de la figura anterior, para que el filtro de salida tenga el mismo tamaño que la imagen de entrada, podemos añadir a la imagen de entrada una columna a la derecha, una columna a la izquierda, una fila arriba y una fila debajo de ceros.
+
+      ---
+      ## Componentes básicos de una red neuronal convolucional
+
+      ### Hiperparámetros de la capa convolucional
+
+      **Padding**
+
+      - Visualmente se puede ver en la siguiente figura:
+
+      ![reducida](../imagenes/image67.jpeg)
+
+      ---
+      ## Componentes básicos de una red neuronal convolucional
+
+      ### Hiperparámetros de la capa convolucional
+
+      **Padding**
+
+      - Si ahora deslizamos la ventana de 3×3, vemos que puede desplazarse 4 posiciones a la derecha y 4 posiciones hacia abajo, generando las 25 ventanas que generan el filtro de tamaño 5×5.
+
+      ![reducida](../imagenes/image68.jpeg)
+
+      ---
+      ## Componentes básicos de una red neuronal convolucional
+
+      ### Hiperparámetros de la capa convolucional
+
+      **Padding**
+
+      - En Keras, el padding en la capa Conv2D se configura con el argumento padding, que puede tener dos valores:
+
+       - "same", que indica que se añadan tantas filas y columnas de ceros como sea necesario para que la salida tenga la misma dimensión que la entrada;
+
+       - "valid", que indica no hacer padding (que es el valor por defecto de este argumento en Keras).
+
+      ---
+      ## Componentes básicos de una red neuronal convolucional
+
+      ### Hiperparámetros de la capa convolucional
+
+      **Stride**
+
+      - Otro hiperparámetro que podemos especificar en una capa convolucional es el stride, que nos indica el número de pasos en que se mueve la ventada de los filtros (en el anterior ejemplo el stride era de uno).
+
+      - Valores de stride grandes hacen decrecer el tamaño de la información que se pasará la siguiente capa.
+
+      - En la siguiente figura podemos ver el mismo ejemplo anterior pero ahora con un valor de stride de 2:
+
+      ![reducida](../imagenes/image69.jpeg)
+
+      ---
+      ## Componentes básicos de una red neuronal convolucional
+
+      ### Hiperparámetros de la capa convolucional
+
+      **Stride**
+
+      - Como vemos, la imagen de 5×5 se ha convertido en un filtro de tamaño más reducido de 2×2. Pero en realidad los strides en convolucionales para reducir los tamaños son raramente utilizados en la práctica; para ello se usan las operaciones de pooling que hemos presentado antes.
+
+      - En Keras, el stride en la capa Conv2D se configura con el argumento stride que tiene por defecto el valor strides=(1, 1) que indica por separado el avance en las dos dimensiones.
+
+      ---
+      ## Redes neuronales convolucionales con nombre propio
+
+      - Hay varias arquitecturas de redes neuronales convolucionales populares dentro de la comunidad de Deep Learning, a las cuales se las denomina mediante un nombre propio.
+
+      - Una de ellas, equivalente a la que hemos presentado, es LeNet, nacida en los años noventa cuando Yann LeCun consiguió el primer uso de redes neuronales convolucionales con éxito en la lectura de códigos postales y dígitos.
+
+      - Los datos de entrada a la red son imágenes de 32×32 píxeles, seguida de dos etapas de convolución-pooling, una capa densamente conectada y una capa softmax final que nos permite reconocer los números.
+      ---
+      ## Redes neuronales convolucionales con nombre propio
+
+      - Pero hay muchas más, por ejemplo:
+       - La red neuronal convolucional AlexNet de Alex Krizhevsky, que ganó la competición de ImageNet del año 2012.
+       - La GoogleLeNet de Google, que con su módulo de inception reduce drásticamente los parámetros de la red (15 veces menos que AlexNet).
+       - De esta se han derivado varias versiones como la Inception-v4.
+       - Otras como la VGGnet contribuyeron a demostrar que la profundidad de la red es una componente crítica para unos buenos resultados.
+
+      - Lo interesante de muchas de estas redes es que podemos encontrarlas ya construidas en la mayoría de frameworks.
+
+      - Por ejemplo, en Keras, si quisiéramos programar una red neuronal VGGnet podríamos hacerlo escribiendo el siguiente código:
+
+      ---
+      ## Redes neuronales convolucionales con nombre propio
+
+      ~~~
+      from keras.models import Sequential
+      from keras.layers import Dense, Activation, Dropout, Flatten
+      from keras.layers import Conv2D
+      from keras.layers import MaxPooling2D
+
+      input_shape = (224, 224, 3)
+
+      model = Sequential()
+      model.add(Conv2D(64, (3, 3), input_shape=input_shape, padding='same',activation='relu'))
+      model.add(Conv2D(64, (3, 3), activation='relu', padding='same'))
+      model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+      model.add(Conv2D(128, (3, 3), activation='relu', padding='same'))
+      model.add(Conv2D(128, (3, 3), activation='relu', padding='same',))
+      model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+      model.add(Conv2D(256, (3, 3), activation='relu', padding='same',))
+      model.add(Conv2D(256, (3, 3), activation='relu', padding='same',))
+      model.add(Conv2D(256, (3, 3), activation='relu', padding='same',))
+      model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+      model.add(Conv2D(512, (3, 3), activation='relu', padding='same',))
+      model.add(Conv2D(512, (3, 3), activation='relu', padding='same',))
+      model.add(Conv2D(512, (3, 3), activation='relu', padding='same',))
+      model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+      model.add(Conv2D(512, (3, 3), activation='relu', padding='same',))
+      model.add(Conv2D(512, (3, 3), activation='relu', padding='same',))
+      model.add(Conv2D(512, (3, 3), activation='relu', padding='same',))
+      model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+      model.add(Flatten())
+      model.add(Dense(4096, activation='relu'))
+      model.add(Dense(4096, activation='relu'))
+      model.add(Dense(1000, activation='softmax'))
+      ~~~
+
+      ---
+      ## Redes neuronales convolucionales con nombre propio
+
+      - Invocando al método summary():
+
+      ~~~
       model.summary()
+      ~~~
 
-      Podemos obtener el detalle del formato de los tensores entre capas, así
-      como los parámetros en cada capa. Pongan atención al número total de
-      parámetros que se requieren.
+      - Podemos obtener el detalle del formato de los tensores entre capas, así como los parámetros en cada capa.
 
+      - Pongan atención al número total de parámetros que se requieren.
+
+      ~~~
       _________________________________________________________________
-      Layer (type) Output Shape Param #
+      Layer (type)                      Output Shape           Param #
       =================================================================
-      conv2d_1 (Conv2D) (None, 224, 224, 64) 1792
+      conv2d_1 (Conv2D)                 (None, 224, 224, 64)    1792
       _________________________________________________________________
-      conv2d_2 (Conv2D) (None, 224, 224, 64) 36928
+      conv2d_2 (Conv2D)                 (None, 224, 224, 64)    36928
       _________________________________________________________________
-      max_pooling2d_1 (MaxPooling2 (None, 112, 112, 64) 0
+      max_pooling2d_1 (MaxPooling2      (None, 112, 112, 64)    0
       _________________________________________________________________
-      conv2d_3 (Conv2D) (None, 112, 112, 128) 73856
+      conv2d_3 (Conv2D)                 (None, 112, 112, 128)   73856
       _________________________________________________________________
-      conv2d_4 (Conv2D) (None, 112, 112, 128) 147584
+      conv2d_4 (Conv2D)                 (None, 112, 112, 128)   147584
       _________________________________________________________________
-      max_pooling2d_2 (MaxPooling2 (None, 56, 56, 128) 0
+      max_pooling2d_2 (MaxPooling2      (None, 56, 56, 128)     0
       _________________________________________________________________
-      conv2d_5 (Conv2D) (None, 56, 56, 256) 295168
-      _________________________________________________________________
-      conv2d_6 (Conv2D) (None, 56, 56, 256) 590080
-      _________________________________________________________________
-      conv2d_7 (Conv2D) (None, 56, 56, 256) 590080
-      _________________________________________________________________
-      max_pooling2d_3 (MaxPooling2 (None, 28, 28, 256) 0
-      _________________________________________________________________
-      conv2d_8 (Conv2D) (None, 28, 28, 512) 1180160
-      _________________________________________________________________
-      conv2d_9 (Conv2D) (None, 28, 28, 512) 2359808
-      _________________________________________________________________
-      conv2d_10 (Conv2D) (None, 28, 28, 512) 2359808
-      _________________________________________________________________
-      max_pooling2d_4 (MaxPooling2 (None, 14, 14, 512) 0
-      _________________________________________________________________
-      conv2d_11 (Conv2D) (None, 14, 14, 512) 2359808
-      _________________________________________________________________
-      conv2d_12 (Conv2D) (None, 14, 14, 512) 2359808
-      _________________________________________________________________
-      conv2d_13 (Conv2D) (None, 14, 14, 512) 2359808
-      _________________________________________________________________
-      max_pooling2d_5 (MaxPooling2 (None, 7, 7, 512) 0
-      _________________________________________________________________
-      flatten_1 (Flatten) (None, 25088) 0
-      _________________________________________________________________
-      dense_1 (Dense) (None, 4096) 102764544
-      _________________________________________________________________
-      dense_2 (Dense) (None, 4096) 16781312
-      _________________________________________________________________
-      dense_3 (Dense) (None, 1000) 4097000
+      conv2d_5 (Conv2D)                 (None, 56, 56, 256)     295168
+      ~~~
 
+      ---
+      ## Redes neuronales convolucionales con nombre propio
+
+      ~~~
+      _________________________________________________________________
+      conv2d_6 (Conv2D)                 (None, 56, 56, 256)     590080
+      _________________________________________________________________
+      conv2d_7 (Conv2D)                 (None, 56, 56, 256)     590080
+      _________________________________________________________________
+      max_pooling2d_3 (MaxPooling2      (None, 28, 28, 256)     0
+      _________________________________________________________________
+      conv2d_8 (Conv2D)                 (None, 28, 28, 512)     1180160
+      _________________________________________________________________
+      conv2d_9 (Conv2D)                 (None, 28, 28, 512)     2359808
+      _________________________________________________________________
+      conv2d_10 (Conv2D)                (None, 28, 28, 512)     2359808
+      _________________________________________________________________
+      max_pooling2d_4 (MaxPooling2      (None, 14, 14, 512)     0
+      _________________________________________________________________
+      conv2d_11 (Conv2D)                (None, 14, 14, 512)     2359808
+      _________________________________________________________________
+      conv2d_12 (Conv2D)                (None, 14, 14, 512)     2359808
+      _________________________________________________________________
+      conv2d_13 (Conv2D)                (None, 14, 14, 512)     2359808
+      _________________________________________________________________
+      max_pooling2d_5 (MaxPooling2      (None, 7, 7, 512)       0
+      _________________________________________________________________
+      flatten_1 (Flatten)               (None, 25088)           0
+      _________________________________________________________________
+      dense_1 (Dense)                   (None, 4096)            102764544
+      _________________________________________________________________
+      ~~~
+
+      ---
+      ## Redes neuronales convolucionales con nombre propio
+
+      ~~~
+      dense_2 (Dense)                   (None, 4096)            16781312
+      _________________________________________________________________
+      dense_3 (Dense)                   (None, 1000)            4097000
       =================================================================
-
       Total params: 138,357,544
-
       Trainable params: 138,357,544
-
       Non-trainable params: 0
-
       _________________________________________________________________
+      ~~~
 
-      Pero en Keras solo nos hace falta especificar las siguientes dos líneas
-      para crearla, además de poderla tener ya iniciada con los parámetros de
-      una red ya entrenada (con Imagenet):
+      - Pero en Keras solo nos hace falta especificar las siguientes dos líneas para crearla, además de poderla tener ya iniciada con los parámetros de una red ya entrenada (con Imagenet):
 
+      ~~~
       from keras.applications import VGG16
 
       model = VGG16(weights='imagenet')
+      ~~~
 
-      Nuevamente, si usamos el método summary() para obtener detalles de esta
-      red, vemos que es idéntica en arquitectura, tensores y parámetros que la
-      que hemos programado nosotros a mano.
+      - Nuevamente, si usamos el método summary() para obtener detalles de esta red, vemos que es idéntica en arquitectura, tensores y parámetros que la que hemos programado nosotros a mano.
+
+      ---
+      ## Redes neuronales convolucionales con nombre propio
 
       model.summary()
 
+      ~~~
       _________________________________________________________________
-      Layer (type) Output Shape Param #
+      Layer (type)                    Output Shape            Param #
       =================================================================
-      input_1 (InputLayer) (None, 224, 224, 3) 0
+      input_1 (InputLayer)            (None, 224, 224, 3)     0
       _________________________________________________________________
-      block1_conv1 (Conv2D) (None, 224, 224, 64) 1792
+      block1_conv1 (Conv2D)           (None, 224, 224, 64)    1792
       _________________________________________________________________
-      block1_conv2 (Conv2D) (None, 224, 224, 64) 36928
+      block1_conv2 (Conv2D)           (None, 224, 224, 64)    36928
       _________________________________________________________________
-      block1_pool (MaxPooling2D) (None, 112, 112, 64) 0
+      block1_pool (MaxPooling2D)      (None, 112, 112, 64)    0
       _________________________________________________________________
-      block2_conv1 (Conv2D) (None, 112, 112, 128) 73856
+      block2_conv1 (Conv2D)           (None, 112, 112, 128)   73856
       _________________________________________________________________
-      block2_conv2 (Conv2D) (None, 112, 112, 128) 147584
+      block2_conv2 (Conv2D)           (None, 112, 112, 128)   147584
       _________________________________________________________________
-      block2_pool (MaxPooling2D) (None, 56, 56, 128) 0
+      block2_pool (MaxPooling2D)      (None, 56, 56, 128)     0
       _________________________________________________________________
-      block3_conv1 (Conv2D) (None, 56, 56, 256) 295168
+      block3_conv1 (Conv2D)           (None, 56, 56, 256)     295168
       _________________________________________________________________
-      block3_conv2 (Conv2D) (None, 56, 56, 256) 590080
+      block3_conv2 (Conv2D)           (None, 56, 56, 256)     590080
       _________________________________________________________________
-      block3_conv3 (Conv2D) (None, 56, 56, 256) 590080
+      block3_conv3 (Conv2D)           (None, 56, 56, 256)     590080
       _________________________________________________________________
-      block3_pool (MaxPooling2D) (None, 28, 28, 256) 0
-      _________________________________________________________________
-      block4_conv1 (Conv2D) (None, 28, 28, 512) 1180160
-      _________________________________________________________________
-      block4_conv2 (Conv2D) (None, 28, 28, 512) 2359808
-      _________________________________________________________________
-      block4_conv3 (Conv2D) (None, 28, 28, 512) 2359808
-      _________________________________________________________________
-      block4_pool (MaxPooling2D) (None, 14, 14, 512) 0
-      _________________________________________________________________
-      block5_conv1 (Conv2D) (None, 14, 14, 512) 2359808
-      _________________________________________________________________
-      block5_conv2 (Conv2D) (None, 14, 14, 512) 2359808
-      _________________________________________________________________
-      block5_conv3 (Conv2D) (None, 14, 14, 512) 2359808
-      _________________________________________________________________
-      block5_pool (MaxPooling2D) (None, 7, 7, 512) 0
-      _________________________________________________________________
-      flatten (Flatten) (None, 25088) 0
-      _________________________________________________________________
-      fc1 (Dense) (None, 4096) 102764544
-      _________________________________________________________________
-      fc2 (Dense) (None, 4096) 16781312
-      _________________________________________________________________
-      predictions (Dense) (None, 1000) 4097000
+      block3_pool (MaxPooling2D)      (None, 28, 28, 256)     0
+      ~~~
 
+      ---
+      ## Redes neuronales convolucionales con nombre propio
+
+      ~~~
+      _________________________________________________________________
+      block4_conv1 (Conv2D)           (None, 28, 28, 512)     1180160
+      _________________________________________________________________
+      block4_conv2 (Conv2D)           (None, 28, 28, 512)     2359808
+      _________________________________________________________________
+      block4_conv3 (Conv2D)           (None, 28, 28, 512)     2359808
+      _________________________________________________________________
+      block4_pool (MaxPooling2D)      (None, 14, 14, 512)     0
+      _________________________________________________________________
+      block5_conv1 (Conv2D)           (None, 14, 14, 512)     2359808
+      _________________________________________________________________
+      block5_conv2 (Conv2D)           (None, 14, 14, 512)     2359808
+      _________________________________________________________________
+      block5_conv3 (Conv2D)           (None, 14, 14, 512)     2359808
+      _________________________________________________________________
+      block5_pool (MaxPooling2D)      (None, 7, 7, 512)       0
+      _________________________________________________________________
+      flatten (Flatten)               (None, 25088)           0
+      _________________________________________________________________
+      fc1 (Dense)                     (None, 4096)            102764544
+      _________________________________________________________________
+      fc2 (Dense)                     (None, 4096)            16781312
+      _________________________________________________________________
+      predictions (Dense)             (None, 1000)            4097000
       =================================================================
-
       Total params: 138,357,544
-
       Trainable params: 138,357,544
-
       Non-trainable params: 0
-
       _________________________________________________________________
+      ~~~
 
-      En realidad, Keras ofrece varios modelos preentrenados[9] que como
-      veremos en la segunda parte del libro son muy útiles para lo que se
-      conoce transfer learning: Xception, VGG16, VGG19, ResNet50, InceptionV3,
-      InceptionResNetV2, MobileNet, DenseNet y NASNet.
+      ---
+      ## Redes neuronales convolucionales con nombre propio
 
-      Como veremos más adelante, el hecho que sean preentrenados es muy
-      valioso en casos donde no disponemos de suficientes datos para
-      entrenarlas, pero también desde un punto de vista computacional. Por
-      ejemplo, en la VGG16 tenemos más de 138 millones de parámetros[10], y
-      si sumamos la memoria requerida para almacenar los datos intermedios
-      vemos que requerimos más de 24 millones de puntos por imagen; si cada
-      uno ocupa 4 bytes de memoria estamos hablando de casi 100 millones de
-      Bytes por imagen solo para la fase de forward.
+      - En realidad, Keras ofrece varios modelos preentrenados que son muy útiles para lo que se conoce transfer learning: Xception, VGG16, VGG19, ResNet50, InceptionV3, InceptionResNetV2, MobileNet, DenseNet y NASNet.
 
-      Recordando lo que hemos comentado antes, las capas convolucionales son
-      las que más memoria requieren: fíjense en las primeras capas
-      convolucionales de este ejemplo, que necesitan almacenar más de 3
-      millones de puntos (224x224x64) y que las capas fully connected, por
-      ejemplo la fc1, requiere más de un millón de parámetros.
+      - El hecho que sean preentrenados es muy valioso en casos donde no disponemos de suficientes datos para entrenarlas, pero también desde un punto de vista computacional.
+
+      - Por ejemplo, en la VGG16 tenemos más de 138 millones de parámetros, y si sumamos la memoria requerida para almacenar los datos intermedios vemos que requerimos más de 24 millones de puntos por imagen; si cada uno ocupa 4 bytes de memoria estamos hablando de casi 100 millones de Bytes por imagen solo para la fase de forward.
+
+      - Recordando lo que hemos comentado antes, las capas convolucionales son las que más memoria requieren: fíjense en las primeras capas convolucionales de este ejemplo, que necesitan almacenar más de 3 millones de puntos (224x224x64) y que las capas fully connected, por ejemplo la fc1, requiere más de un millón de parámetros.
 
 
     </textarea>
