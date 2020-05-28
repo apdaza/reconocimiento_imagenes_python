@@ -2335,6 +2335,8 @@ neuronales convolucionales para el mismo ejemplo.
 \[15\]
 http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion\_matrix.html
 
+----------------------------ojo esto falta---------------------------
+
 6.  4\. CÓMO SE ENTRENA UNA RED NEURONAL
 
 En este capítulo vamos a presentar una visión intuitiva de los
@@ -3979,7 +3981,7 @@ https://arxiv.org/pdf/1512.07108v5.pdf
     parte del libro.
 
 <!-- -->
-
+---------------------------------------------------ojo esto falta ------------------------------
 8.  6\. CLAUSURA: se avecinan cambios
 
 Hasta aquí la primera parte de este libro introductorio sobre Deep
