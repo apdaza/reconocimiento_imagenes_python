@@ -5,14 +5,766 @@
   </head>
   <body>
     <textarea id="source">
+      name: inverse
+      layout: true
+      class: center, middle, inverse
+      ---
+      template: inverse
+      ![reducida](../imagenes/logo_horizontal.png)
+      # Python
+      ***
+      ---
+      layout: false
+      # Python
+      ***
 
+      Python, pertenece al grupo de los lenguajes de programación y puede ser clasificado como un lenguaje interpretado, de alto nivel, multiplataforma, de tipado dinámico y multiparadigma.
+
+      A diferencia de la mayoría de los lenguajes de programación, Python nos provee de reglas de estilos, a fin de poder escribir código fuente más legible y de manera estandarizada.
+
+      Estas reglas de estilo, son definidas a través de la Python Enhancement Proposal Nº 8 (PEP 8), la cual se debe consultar para respetar los estilos de codificación recomendados en el lenguaje.
+
+      ---
+      # Elementos del Lenguaje
+
+      Como en la mayoría de los lenguajes de programación de alto nivel, en Python se compone de una serie de elementos que alimentan su estructura.
+
+      Entre ellos, podremos encontrar los siguientes:
+
+      ## Variables
+
+      Una variable es un espacio para almacenar datos modificables, en la memoria de un ordenador. En Python, una variable se define con la sintaxis:
+
+      ~~~
+      nombre_de_la_variable = valor_de_la_variable
+      ~~~
+
+      Cada variable, tiene un nombre y un valor, el cual define a la vez, el tipo de datos de la variable.
+
+      Existe un tipo de “variable”, denominada constante, la cual se utiliza para definir valores fijos, que no requieran ser modificados.
+
+      ---
+      ## Variables
+
+      Para imprimir un valor en pantalla, en Python, se utiliza la palabra clave print:
+
+      ~~~
+      mi_variable = 15
+      print(mi_variable)
+      ~~~
+
+      Lo anterior, imprimirá el valor de la variable mi_variable en pantalla.
+
+      Una variable (o constante) puede contener valores de diversos tipos. Entre ellos:
+
+      - Cadena de texto (string):
+      ~~~
+      mi_cadena = "Hola Mundo!"
+      mi_cadena_multilinea = """ Esta es una cadena de varias lineas """
+      ~~~
+
+      - Número entero:
+      ~~~
+      edad = 35
+      ~~~
+
+      - Número entero octal:
+      ~~~
+      edad = 043
+      ~~~
+
+      ---
+      ## Variables
+
+      - Número entero hexadecimal:
+      ~~~
+      edad = 0x23
+      ~~~
+
+      - Número real:
+      ~~~
+      precio = 7435.28
+      ~~~
+
+      - Booleano (verdadero / Falso):
+      ~~~
+      verdadero = True
+      falso = False
+      ~~~
+
+      - Existen además, otros tipos de datos más complejos, que veremos más adelante.
+
+      ---
+      ## Operadores Aritméticos
+
+      Entre los operadores aritméticos que Python utiliza, podemos encontrar los siguientes:
+
+      | Símbolo |  Significado  |   Ejemplo   |    Resultado  |
+      |---------|---------------|-------------|---------------|
+      | +       |     Suma      | a = 10 + 5  |    a es 15    |
+      | -       |  Resta        | a = 12 - 7  |    a es 5     |
+      | -       |  Negación     | a = -5      |    a es -5    |
+      | *       |  Multiplicación | a = 7 * 5 |   a es 35     |
+      | **      |  Exponente    | a = 2 ** 3  |   a es 8      |
+      | /       |  División     | a = 12.5 / 2 | a es 6.25    |
+      | //      |  División entera | a = 12.5 / 2 | a es 6.0  |
+      | %       |  Módulo       |  a = 27 % 4  |    a es 3    |
+
+
+      ---
+      ## Un ejemplo sencillo con variables y operadores aritméticos:
+
+      ~~~
+      monto_bruto = 175
+      tasa_interes = 12
+      monto_interes = monto_bruto * tasa_interes / 100
+      tasa_bonificacion = 5
+      importe_bonificacion = monto_bruto * tasa_bonificacion / 100
+      monto_neto = (monto_bruto - importe_bonificacion) + monto_interes
+      ~~~
+
+      ## Comentarios
+
+      Un archivo, no solo puede contener código fuente. También puede incluir comentarios.
+
+      Los comentarios pueden ser de dos tipos:
+      - de una sola línea
+      - multi-línea
+      - fin de línea
+
+      ~~~
+      # Esto es un comentario de una sola línea
+      mi_variable = 15
+
+      """Y este es un comentario
+      de varias líneas"""
+      mi_variable = 15
+
+      mi_variable = 15  # Este comentario es de fin de línea también
+      ~~~
+
+      ---
+      ## Comentarios
+
+      En los comentarios, pueden incluirse palabras que nos ayuden a identificar además, el subtipo de comentario:
+
+      ~~~
+      # TODO esto es algo por hacer
+      # FIXME esto es algo que debe corregirse
+      # XXX esto también, es algo que debe corregirse
+      ~~~
+
+      ---
+      ## Tipos de datos complejos
+
+      Python, posee además de los tipos ya vistos, 3 tipos complejos o compuestos, que admiten una colección de datos.
+
+      Estos tipos son:
+      - Tuplas
+      - Listas
+      - Diccionarios
+
+      Estos tres tipos, pueden almacenar colecciones de datos de diversos tipos y se diferencian por su sintaxis y por la forma en la cual los datos pueden ser manipulados.
+
+      ### Tuplas
+
+      Una tupla es una variable que permite almacenar varios datos inmutables (no pueden ser modificados una vez creados) de tipos diferentes:
+
+      ~~~
+      mi_tupla = ('cadena de texto', 15, 2.8, 'otro dato', 25)
+      ~~~
+
+      ---
+      ### Tuplas
+
+      Se puede acceder a cada uno de los datos mediante su índice correspondiente, siendo 0 (cero), el índice del primer elemento:
+
+      ~~~
+      print(mi_tupla[1])  # Salida: 15
+      ~~~
+
+      También se puede acceder a una porción de la tupla, indicando (opcionalmente) desde el índice de inicio hasta el índice de fin:
+
+      ~~~
+      print(mi_tupla[1:4])  # Devuelve: (15, 2.8, 'otro dato')
+      print(mi_tupla[3:])   # Devuelve: ('otro dato', 25)
+      print(mi_tupla[:2])   # Devuelve: ('cadena de texto', 15)
+      ~~~
+
+      Otra forma de acceder a la tupla de forma inversa (de atrás hacia adelante), es colocando un índice negativo:
+
+      ~~~
+      print(mi_tupla[-1])  # Salida: 25
+      print(mi_tupla[-2])  # Salida: otro dato
+      ~~~
+
+      ---
+      ### Listas
+
+      Una lista es similar a una tupla con la diferencia fundamental de que permite modificar los datos una vez creados
+
+      ~~~
+      mi_lista = ['cadena de texto', 15, 2.8, 'otro dato', 25]
+      ~~~
+
+      A las listas se accede igual que a las tuplas, por su número de índice:
+
+      ~~~
+      print(mi_lista[1]) # Salida: 15
+      print(mi_lista[1:4])  # Devuelve: [15, 2.8, 'otro dato']
+      print(mi_lista[-2])   # Salida: otro dato
+      ~~~
+
+      Las lista NO son inmutables: permiten modificar los datos una vez creados:
+
+      ~~~
+      mi_lista[2] = 3.8  # el tercer elemento ahora es 3.8
+      ~~~
+
+      Las listas, a diferencia de las tuplas, permiten agregar nuevos valores:
+
+      ~~~
+      mi_lista.append('Nuevo Dato')
+      ~~~
+
+      ---
+      ### Diccionarios
+
+      Mientras que a las listas y tuplas se accede solo y únicamente por un número de índice, los diccionarios permiten utilizar una clave para declarar y acceder a un valor:
+
+      ~~~
+      mi_diccionario = {'clave_1': valor_1, 'clave_2': valor_2, 'clave_7': valor_7}
+      print(mi_diccionario['clave_2'])  # Salida: valor_2
+      ~~~
+
+      Un diccionario permite eliminar cualquier entrada:
+
+      ~~~
+      del(mi_diccionario['clave_2'])
+      ~~~
+
+      Al igual que las listas, el diccionario permite modificar los valores
+
+      ~~~
+      mi_diccionario['clave_1'] = 'Nuevo Valor'
+      ~~~
+
+      ---
+      ## Estructuras de Control
+
+      Una estructura de control, es un bloque de código que permite agrupar instrucciones de manera controlada.
+
+      Dos tipos de estructuras de control:
+      - Estructuras de control condicionales
+      - Estructuras de control iterativas
+      ****
+      ### Identación
+
+      Para hablar de estructuras de control de flujo en Python, es imprescindible primero, hablar de identación.
+
+      La identación es lo que la sangría al lenguaje humano escrito (a nivel formal). Así como para el lenguaje formal, cuando uno redacta una carta, debe respetar ciertas sangrías, Python requiere una identación.
+
+      No todos los lenguajes de programación, necesitan identación, aunque sí, se estila implementarla, a fin de otorgar mayor legibilidad al código fuente. Pero en el caso de Python, la identación es obligatoria, ya que de ella, dependerá su estructura.
+      ***
+
+
+      ---
+      ## Estructuras de Control
+
+      Una estructura de control, entonces, se define de la siguiente forma:
+      ~~~
+      inicio de la estructura de control:
+          expresiones
+      ~~~
+
+      ## Encoding
+
+      El encoding (o codificación) es otro de los elementos del lenguaje que no puede omitirse.
+
+      El encoding no es más que una directiva que se coloca al inicio de un archivo Python, a fin de indicar al sistema, la codificación de caracteres utilizada en el archivo.
+      ~~~
+      # -*- coding: utf-8 -*
+      ~~~
+
+      Si no se indica una codificación de caracteres, Python podría producir un error si encontrara caracteres “extraños”:
+      ~~~
+      print("En el Ñágara encontré un Ñandú")
+      ~~~
+
+      ---
+      ## Encoding
+
+      Producirá un error de sintaxis:
+      ~~~
+      SyntaxError: Non-ASCII character[...]
+      ~~~
+
+      En cambio, indicando el encoding correspondiente, el archivo se ejecutará con éxito:
+      ~~~
+      # -*- coding: utf-8 -*
+      print("En el Ñágara encontré un Ñandú")
+      ~~~
+
+      ## Asignación múltiple
+
+      Otra de las ventajas que Python nos provee, es la de poder asignar en una sola instrucción, múltiples variables:
+      ~~~
+      a, b, c = 'string', 15, True
+      ~~~
+
+      En una sola instrucción, estamos declarando tres variables: a, b y c y asignándoles un valor concreto a cada una:
+      ~~~
+      >>> print(a)
+          string
+      >>> print(b)
+          15
+      >>> print(c)
+          True
+      ~~~
+
+      ---
+      ## Asignación múltiple
+
+      La asignación múltiple de variables, también puede darse utilizando como valores, el contenido de una tupla:
+      ~~~
+      >>> mi_tupla = ('hola mundo', 2011)
+      >>> texto, anio = mi_tupla
+      >>> print(texto)
+          hola mundo
+      >>> print(anio)
+          2011
+      ~~~
+
+      O también, de una lista:
+      ~~~
+      >>> mi_lista = ['Argentina', 'Buenos Aires']
+      >>> pais, provincia = mi_lista
+      >>> print(pais)
+          Argentina
+      >>> print(provincia)
+          Buenos Aires
+      ~~~
+
+      ---
+      ## Estructuras de control: condicionales
+
+      Las estructuras de control condicionales, son aquellas que nos permiten evaluar si una o más condiciones se cumplen, para decir qué acción vamos a ejecutar.
+
+      La evaluación de condiciones, solo puede arrojar 1 de 2 resultados: verdadero o falso (True o False).
+
+      Para describir la evaluación a realizar sobre una condición, se utilizan operadores relacionales (o de comparación):
+
+
+      |Símbolo | Significado | Ejemplo | Resultado |
+      |--------|-------------|---------|-----------|
+      | == | Igual que | 5 == 7 | Falso |
+      | != | Distinto que | rojo != verde | Verdadero |
+      | <  | Menor que | 8 < 12 | Verdadero |
+      | > | Mayor que | 12 > 7 | Falso |
+      | <= | Menor o igual que | 12 <= 12 | Verdadero |
+      | >= | Mayor o igual que | 4 >= 5 | Falso |
+
+      ---
+      ## Estructuras de control: condicionales
+
+      Y para evaluar más de una condición simultáneamente, se utilizan operadores lógicos:
+
+      | Operador | Ejemplo | Resultado |
+      |---|---|---|
+      | and (y) | 5 == 7 and 7 < 12 | 0 y 0  Falso |
+      | | 9 < 12 and 12 > 7 | 1 y 1 Verdadero |
+      | | 9 < 12 and 12 > 15 | 1 y 0 Falso |
+      | or (o) | 12 == 12 or 15 < 7 | 1 o 0 Verdadero |
+      | | 7 > 5 or 9 < 12 | 1 o 1 Verdadero |
+      | xor (o excluyente) | 4 == 4 xor 9 > 3 | 1 o 1 Falso |
+      | | 4 == 4 xor 9 < 3 | 1 o 0 Verdadero |
+
+      ---
+      ## Estructuras de control: condicionales
+
+      Las estructuras de control de flujo condicionales, se definen mediante el uso de tres palabras claves reservadas, del lenguaje: **if** (si), **elif** (sino, si) y **else** (sino).
+
+      Veamos algunos ejemplos:
+
+      ~~~
+      if semaforo == verde:
+           print("Cruzar la calle")
+      else:
+           print("Esperar")
+
+      if compra <= 100:
+           print("Pago en efectivo")
+      elif compra > 100 and compra < 300:
+           print("Pago con tarjeta de débito")
+      else:
+           print("Pago con tarjeta de crédito")
+
+      importe_a_pagar = total_compra
+      if total_compra > 100:
+           tasa_descuento = 10
+           importe_descuento = total_compra * tasa_descuento / 100
+           importe_a_pagar = total_compra – importe_descuento
+      ~~~
+
+      ---
+      ## Estructuras de control iterativas
+
+      A diferencia de las estructuras de control condicionales, las iterativas (también llamadas cíclicas o bucles), nos permiten ejecutar un mismo código, de manera repetida, mientras se cumpla una condición.
+
+      En Python se dispone de dos estructuras cíclicas:
+      - El bucle while
+      - El bucle for
+
+      ### Bucle while
+
+      Este bucle, se encarga de ejecutar una misma acción “mientras que” una determinada condición se cumpla:
+      ~~~
+      # -*- coding: utf-8 -*
+      anio = 2001
+      while anio <= 2012:
+           print("Informes del Año", str(anio))
+           anio += 1
+      ~~~
+      ---
+      ### Bucle while
+
+      La iteración anterior, generará la siguiente salida:
+      ~~~
+      Informes del año 2001
+      Informes del año 2002
+      Informes del año 2003
+      Informes del año 2004
+      Informes del año 2005
+      Informes del año 2006
+      Informes del año 2007
+      Informes del año 2008
+      Informes del año 2009
+      Informes del año 2010
+      Informes del año 2011
+      Informes del año 2012
+      ~~~
+
+      Podremos utilizar una estructura de control condicional, anidada dentro del bucle, y frenar la ejecución cuando el condicional deje de cumplirse, con la palabra clave reservada break:
+
+      ~~~
+      while True:
+           nombre = input("Indique su nombre: ")
+           if nombre:
+                  break
+      ~~~
+
+      ---
+      ### Bucle for
+
+      El bucle for, en Python, es aquel que nos permitirá iterar sobre una variable compleja, del tipo lista o tupla:
+      ~~~
+      mi_lista = ['Juan', 'Antonio', 'Pedro', 'Herminio']
+      for nombre in mi_lista:
+           print(nombre)
+
+      mi_tupla = ('rosa', 'verde', 'celeste', 'amarillo')
+      for color in mi_tupla:
+           print(color)
+      ~~~
+
+      Otra forma de iterar con el bucle for, puede emular a while:
+      ~~~
+      # -*- coding: utf-8 -*-
+
+      for anio in range(2001, 2013):
+           print("Informes del Año", str(anio))
+      ~~~
+
+      ---
+      # Módulos y paquetes
+
+      En Python, cada uno de nuestros archivos .py se denominan módulos. Estos módulos, a la vez, pueden formar parte de paquetes. Un paquete, es una carpeta que contiene archivos .py.
+
+      Pero, para que una carpeta pueda ser considerada un paquete, debe contener un archivo de inicio llamado __init__.py. Este archivo, no necesita contener ninguna instrucción. De hecho, puede estar completamente vacío.
+
+      ~~~
+      .
+      └── paquete
+           ├── __init__.py
+           ├── modulo1.py
+           ├── modulo2.py
+           └── modulo3.py
+      ~~~
+
+      Los paquetes, a la vez, también pueden contener otros sub-paquetes:
+
+      ~~~
+      .
+      └── paquete
+           ├── __init__.py
+           ├── modulo1.py
+           └── subpaquete
+                ├── __init__.py
+                ├── modulo1.py
+                └── modulo2.py
+      ~~~
+          .
+      ---
+      ## Importando módulos enteros
+
+      El contenido de cada módulo, podrá ser utilizado a la vez, por otros módulos. Para ello, es necesario importar los módulos que se quieran utilizar.
+
+      Para importar un módulo, se utiliza la instrucción import, seguida del nombre del paquete (si aplica) más el nombre del módulo (sin el .py) que se desee importar.
+      ~~~
+      # -*- coding: utf-8 *-*
+      import modulo  # importar un módulo que no pertenece a un paquete
+      import paquete.modulo1  # importar un módulo que está dentro de un paquete
+      import paquete.subpaquete.modulo1
+      ~~~
+
+      ## Namespaces
+      Para acceder (desde el módulo donde se realizó la importación), a cualquier elemento del módulo importado, se realiza mediante el namespace, seguido de un punto (.) y el nombre del elemento que se desee obtener.
+
+      En Python, un namespace, es el nombre que se ha indicado luego de la palabra import, es decir la ruta (namespace) del módulo:
+      ~~~
+      print(modulo.CONSTANTE_1)
+      print(paquete.modulo1.CONSTANTE_1)
+      print(paquete.subpaquete.modulo1.CONSTANTE_1)
+      ~~~
+
+      ---
+      ## Alias
+
+      Es posible también, abreviar los namespaces mediante un “alias”. Para ello, durante la importación, se asigna la palabra clave as seguida del alias con el cuál nos referiremos en el futuro a ese namespace importado:
+      ~~~
+      import modulo as m
+      import paquete.modulo1 as pm
+      import paquete.subpaquete.modulo1 as psm
+      ~~~
+
+      Luego, para acceder a cualquier elemento de los módulos importados, el namespace utilizado será el alias indicado durante la importación:
+      ~~~
+      print(m.CONSTANTE _1)
+      print(pm.CONSTANTE _1)
+      print(psm.CONSTANTE_1)
+      ~~~
+
+      ## Importar módulos sin utilizar namespaces
+
+      En Python, es posible también, importar de un módulo solo los elementos que se desee utilizar. Para ello se utiliza la instrucción from seguida del namespace, más la instrucción import seguida del elemento que se desee importar:
+      ~~~
+      from paquete.modulo1 import CONSTANTE_1
+
+      print(CONSTANTE_1)
+      ~~~
+
+      ---
+      ## Definiendo funciones
+
+      En Python, la definición de funciones se realiza mediante la instrucción def más un nombre de función descriptivo -para el cuál, aplican las mismas reglas que para el nombre de las variables- seguido de paréntesis de apertura y cierre.
+
+      Como toda estructura de control en Python, la definición de la función finaliza con dos puntos (:) y el algoritmo que la compone, irá identado con 4 espacios:
+      ~~~
+      def mi_funcion():     # aquí el algoritmo
+      ~~~
+
+      Una función, no es ejecutada hasta tanto no sea invocada. Para invocar una función, simplemente se la llama por su nombre:
+      ~~~
+      def mi_funcion():
+           print "Hola Mundo"
+
+      funcion()
+      ~~~
+
+      Cuando una función, haga un retorno de datos, éstos, pueden ser asignados a una variable:
+      ~~~
+      def funcion():
+           return "Hola Mundo"
+
+      frase = funcion()
+      print(frase)
+      ~~~
+
+      ---
+      ## Parámetros de funciones
+
+      Un parámetro es un valor que la función espera recibir cuando sea llamada (invocada), a fin de ejecutar acciones en base al mismo. Una función puede esperar uno o más parámetros (que irán separados por una coma) o ninguno.
+      ~~~
+      def mi_funcion(nombre, apellido):     # algoritmo
+      ~~~
+
+      Los parámetros, se indican entre los paréntesis, a modo de variables, a fin de poder utilizarlos como tales, dentro de la misma función.
+
+      Los parámetros que una función espera, serán utilizados por ésta, dentro de su algoritmo, a modo de variables de ámbito local. Es decir, que los parámetros serán variables locales, a las cuáles solo la función podrá acceder:
+      ~~~
+      def mi_funcion(nombre, apellido):
+           nombre_completo = nombre, apellido
+           print(nombre_completo)
+      ~~~
+
+      Si quisiéramos acceder a esas variables locales, fuera de la función, obtendríamos un error.
+
+      ---
+      ## Parámetros por omisión
+
+      En Python, también es posible, asignar valores por defecto a los parámetros de las funciones. Esto significa, que la función podrá ser llamada con menos argumentos de los que espera:
+      ~~~
+      def saludar(nombre, mensaje='Hola'):
+           print(mensaje, nombre )
+
+      saludar('Pepe Grillo')  # Imprime: Hola Pepe Grillo
+      ~~~
+
+      ## Keywords como parámetros
+
+      En Python, también es posible llamar a una función, pasándole los argumentos esperados, como pares de claves=valor:
+      ~~~
+      def saludar(nombre, mensaje='Hola'):
+           print(mensaje, nombre)
+
+      saludar(mensaje="Buen día", nombre="Juancho")
+      ~~~
+
+      ---
+      ## Parámetros arbitrarios
+
+      Al igual que en otros lenguajes de alto nivel, es posible que una función, espere recibir un número arbitrario -desconocido- de argumentos. Estos argumentos, llegarán a la función en forma de tupla. Para definir argumentos arbitrarios en una función, se antecede al parámetro un asterisco (*):
+      ~~~
+      def recorrer_parametros_arbitrarios(parametro_fijo, *arbitrarios):
+           print parametro_fijo
+           # Los parámetros arbitrarios se corren como tuplas
+           for argumento in arbitrarios:
+                    print argumento
+
+      recorrer_parametros_arbitrarios('Fixed', 'arbitrario 1', 'arbitrario 2', 'arbitrario 3')
+      ~~~
+
+      Es posible también, obtener parámetros arbitrarios como pares de clave=valor. En estos casos, al nombre del parámetro deben precederlo dos astericos (**):
+      ~~~
+      def recorrer_parametros_arbitrarios(parametro_fijo, *arbitrarios, **kwords):
+           print parametro_fijo
+           for argumento in arbitrarios:
+                    print argumento
+           # Los argumentos arbitrarios tipo clave, se recorren como los diccionarios
+           for clave in kwords:
+                    print "El valor de", clave, "es", kwords[clave]
+
+      recorrer_parametros_arbitrarios("Fixed", "arbitrario 1", "arbitrario 2", "arbitrario 3",
+                                      clave1="valor uno", clave2="valor dos")
+      ~~~
+
+      ---
+      ## Desempaquetado de parámetros
+
+      Puede ocurrir además, una situación inversa a la anterior. Es decir, que la función espere una lista fija de parámetros, pero que éstos, en vez de estar disponibles de forma separada, se encuentren contenidos en una lista o tupla o un diccionario:
+
+      - En el caso de que vengan en una lista o tupla, el signo asterisco (*) deberá preceder al nombre de la lista o tupla que es pasada como parámetro durante la llamada a la función.
+      - El mismo caso puede darse cuando los valores a ser pasados como parámetros a una función, se encuentren disponibles en un diccionario. Aquí, deberán pasarse a la función, precedidos de dos asteriscos (**).
+
+      ~~~
+      def calcular(importe, descuento):
+           return importe - (importe * descuento / 100)
+
+      datos = [1500, 10]
+      print(calcular(*datos))
+
+      datos = {"descuento": 10, "importe": 1500}
+      print(calcular(**datos))
+      ~~~
+
+      ---
+      ## Llamadas recursivas
+
+      Se denomina llamada recursiva (o recursividad), a aquellas funciones que en su algoritmo, hacen referencia sí misma. Las llamadas recursivas suelen ser muy útiles en casos muy puntuales, pero debido a su gran factibilidad de caer en iteraciones infinitas, deben extremarse las medidas preventivas adecuadas.
+
+      Python admite las llamadas recursivas, permitiendo a una función, llamarse a sí misma, de igual forma que lo hace cuando llama a otra función.
+      ~~~
+      def jugar(intento=1):
+           respuesta = input("¿De qué color es una naranja? ")
+           if respuesta != "naranja":
+                if intento < 3:
+                     print ("\nFallaste! Inténtalo de nuevo")
+                     intento += 1
+                     jugar(intento)  # Llamada recursiva
+                else:
+                     print("\nPerdiste!")
+           else:
+                print("\nGanaste!")
+
+      jugar()
+      ~~~
+
+      ---
+      # Programación orientada a objetos
+
+      El mecanismo de clases de Python agrega clases al lenguaje con un mínimo de nuevas sintaxis y semánticas.
+
+      Las clases en Python mantienen el poder completo de las características más importantes de las clases:
+      - el mecanismo de la herencia de clases permite múltiples clases base, una clase derivada puede sobreescribir cualquier método de su(s) clase(s) base
+      - un método puede llamar al método de la clase base con el mismo nombre.
+
+      Los objetos pueden tener una cantidad arbitraria de datos. todos los miembros de las clases (incluyendo los miembros de datos), son públicos, y todas las funciones miembro son virtuales.
+
+      No hay atajos para hacer referencia a los miembros del objeto desde sus métodos: la función método se declara con un primer argumento explícito que representa al objeto, el cual se provee implícitamente por la llamada.
+
+      ---
+      # Programación orientada a objetos
+
+      Las clases mismas son objetos. Esto provee una semántica para importar y renombrar.
+
+      Los tipos de datos integrados pueden usarse como clases base para que el usuario los extienda.
+
+      También, la mayoría de los operadores integrados con sintaxis especial (operadores aritméticos, de subíndice, etc.) pueden ser redeﬁnidos por instancias de la clase.
+
+      ---
+      ## Ejemplo de POO
+
+      ~~~
+      class UnidadDeTiempo:
+        	def __init__(self):
+          		valor = 0
+          		tope = 59
+
+        	def avanzar(self):
+          		if self.valor < self.tope:
+          			 self.valor = self.valor+1
+          		else:
+          			 self.valor = 0;
+
+        	def resetear(self):
+        		  self.valor = 0
+
+        	def getValor(self):
+        		  return self.valor
+
+      class Hora(UnidadDeTiempo):
+        	def __init__(self):
+          		self.valor=0
+          		self.tope=23
+
+      class Minuto(UnidadDeTiempo):
+        	def __init__(self):
+        		  self.valor=0
+        		  self.tope=59
+      ~~~
+
+      ---
+      ## Ejemplo de POO
+
+      ~~~
+      class Cronometro:
+        	def __init__(self):
+          		self.h = Hora()
+        		  self.m = Minuto()
+
+        	def avanzar(self):
+        		  self.m.avanzar()
+        			if(self.m.getValor()==0):
+        				  self.h.avanzar()
+
+        	def getTiempo(self):
+        		  return "{02d}:{02d}".format(self.h.getValor(), self.m.getValor())
+      ~~~
 
     </textarea>
     <script src="../scripts/remark.js"></script>
     <script>
-       var slideshow = remark.create({
-          sourceUrl: 'contenido.md'
-        });
+       var slideshow = remark.create();
     </script>
   </body>
 </html>

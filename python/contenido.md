@@ -3,10 +3,10 @@ layout: true
 class: center, middle, inverse
 ---
 template: inverse
-![RN](../imagenes/logo_horizontal.png)
-# Redes Neuronales
+![reducida](../imagenes/logo_horizontal.png)
+# Python
 ***
 ---
 layout: false
-# PYTHON
+# Python
 ***
